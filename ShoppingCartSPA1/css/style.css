@@ -39,7 +39,7 @@ body{
 	font-family: 'Open Sans', sans-serif;
 }
 .header-top {
-    background: #1565c0;
+    background: #f19e1f !important;
 	 padding: .7em 0;
  }
 .top-left {
@@ -993,7 +993,7 @@ h3.tittle1 {
 .copy-section{
 	padding:2em 0;
 	text-align:center;
-	background: #0A0A0A;
+	background: #f19e1f;
 }
 .copy-section p {
 	font-size: 0.9em;
