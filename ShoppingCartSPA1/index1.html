@@ -1,0 +1,611 @@
+﻿<!--
+Au<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>New Shop a E-Commerce Online Shopping Category Flat Bootstrap Responsive Website Template | Home :: w3layouts</title>
+    <!--css-->
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="css/font-awesome.css" rel="stylesheet">
+    <!--css-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="New Shop Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <script src="js/jquery.min.js"></script>
+    <link href='//fonts.googleapis.com/css?family=Cagliostro' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,800italic,800,700italic,700,600italic,600,400italic,300italic,300' rel='stylesheet' type='text/css'>
+    <!--search jQuery-->
+    <script src="js/main.js"></script>
+    <!--search jQuery-->
+    <script src="js/responsiveslides.min.js"></script>
+    <script>
+        $(function () {
+            $("#slider").responsiveSlides({
+                auto: true,
+                nav: true,
+                speed: 500,
+                namespace: "callbacks",
+                pager: true,
+            });
+        });
+    </script>
+    <!--mycart-->
+    <script type="text/javascript" src="js/bootstrap-3.1.1.min.js"></script>
+    <!-- cart -->
+    <script src="js/simpleCart.min.js"></script>
+    <!-- cart -->
+    <!--start-rate-->
+    <script src="js/jstarbox.js"></script>
+    <link rel="stylesheet" href="css/jstarbox.css" type="text/css" media="screen" charset="utf-8" />
+    <script type="text/javascript">
+        jQuery(function() {
+            jQuery('.starbox').each(function() {
+                var starbox = jQuery(this);
+                starbox.starbox({
+                    average: starbox.attr('data-start-value'),
+                    changeable: starbox.hasClass('unchangeable') ? false : starbox.hasClass('clickonce') ? 'once' : true,
+                    ghosting: starbox.hasClass('ghosting'),
+                    autoUpdateAverage: starbox.hasClass('autoupdate'),
+                    buttons: starbox.hasClass('smooth') ? false : starbox.attr('data-button-count') || 5,
+                    stars: starbox.attr('data-star-count') || 5
+                }).bind('starbox-value-changed', function(event, value) {
+                    if(starbox.hasClass('random')) {
+                        var val = Math.random();
+                        starbox.next().text(' '+val);
+                        return val;
+                    }
+                })
+            });
+        });
+    </script>
+
+    <!--//End-rate-->
+
+
+    <script>
+        function showproduct() {
+            var a = document.getElementById('cart');
+            a.style.display='none';
+            var x = document.getElementById('product');
+
+            if (x.style.display === 'none') {
+                x.style.display = 'block';
+            }
+        }
+    </script>
+
+    <script>
+        function showcart() {
+            var b = document.getElementById('product');
+            b.style.display='none';
+            var y = document.getElementById('cart');
+
+
+            if (y.style.display === 'none') {
+                y.style.display = 'block';
+            }
+        }
+    </script>
+
+
+    <script type="text/html" id="producttr">
+        <div class="col-md-3 arrival-grid simpleCart_shelfItem">
+            <div class="grid-arr">
+                <div class="grid-arrival">
+                    <figure>
+                        <a href="#" class="new-gri" data-toggle="modal" data-target="#myModal1">
+
+                            <div class="grid-img">
+                                <img src="/Images/{{Image}}" class="img-responsive" alt="">
+                            </div>
+                        </a>
+                    </figure>
+                </div>
+
+                <div class="block">
+                    <div class="starbox small ghosting"> </div>
+                </div>
+                <div class="women">
+                    <h6>{{Name}}</h6>
+                    <span class="size">XL / XXL / S </span>
+                    <p><del>$100.00</del><em class="item_price">${{Price}}</em></p>
+
+                    <button class="btn btn-success" onclick="AddToCart({{Id}})">Add To Cart     <i class="fa fa-shopping-cart"></i></button>
+                </div>
+            </div>
+        </div>
+
+
+    </script>
+
+    <script type="text/html" id="cartpro">
+
+        <div class="cart-sec simpleCart_shelfItem">
+            <div class="cart-item cyc">
+                <img src="/Images/{{Image}}" class="img-responsive" alt="">
+            </div>
+            <div class="cart-item-info">
+                <h3>{{Name}}<span>Pickup time:</span></h3>
+                <ul class="qty">
+                    <li><p>Min. order value:</p></li>
+                    <li><p>FREE delivery</p></li>
+                </ul>
+                <div class="delivery">
+                    <p>Service Charges : ${{Price}}</p>
+                    <span>
+                    <script></script></span>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+
+        </div>
+
+    </script>
+
+
+
+
+
+    <script>
+        function GetProducts() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('Get', 'api/GetProducts');
+            xhr.onload = function () {
+                if (xhr.response && xhr.response != '') {
+                    var products = JSON.parse(xhr.response);
+                    var mainbody = document.getElementById('mainbody');
+                    mainbody.innerHTML = '';
+                    var htmlcode = '';
+                    for (var i = 0; i < products.length; i++) {
+                        var producttr = document.getElementById('producttr').innerHTML;
+                        producttr = producttr.replace('{{Name}}', products[i].Name);
+                        producttr = producttr.replace('{{Price}}', products[i].Price);
+                        producttr = producttr.replace('{{Image}}', products[i].Imageurl);
+                        producttr = producttr.replace('{{Id}}', products[i].Id);
+                        mainbody.innerHTML += producttr;
+                    }
+                }
+            };
+            xhr.send(null);
+        }
+        function AddToCart(pid) {
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('Get', 'api/AddToCart/'+pid);
+            xhr.onload = function () {
+                if (xhr.response && xhr.response != '') {
+
+
+                }
+            };
+
+            xhr.send(null);
+        }
+    </script>
+
+
+
+
+    <script>
+        var sc = null;
+        function GetCart() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('Get', 'api/GetCart');
+            xhr.onload = function () {
+                if (xhr.response && xhr.response != '') {
+                    var product = JSON.parse(xhr.response);
+                    var cartproducts = document.getElementById('cartproducts');
+                    cartproducts.innerHTML = '';
+                    var htmlcode = '';
+                    for (var i = 0; i < product.length; i++) {
+                        var pro = document.getElementById('cartpro').innerHTML;
+                        pro  = pro.replace('{{Name}}', product.Name[1].Name);
+
+                        pro = pro.replace('{{Id}}', product.Id[i].Id);
+                        cartproducts.innerHTML += pro;
+                    }
+                }
+            };
+            xhr.send(null);
+        }
+
+    </script>
+
+
+
+
+</head>
+<body onload="GetProducts()">
+    <!--header-->
+    <div class="header">
+        <div class="header-top">
+            <div class="container">
+                <div class="top-left">
+                    <a href="#"><h3>IKRAM ONLINE STORE</h3>  </a>
+
+                </div>
+                <div class="top-right">
+                    <ul>
+                        <li><a onclick="showproduct()">Products</a></li>
+                        <li><a onclick="showcart()">Cart</a></li>
+                        <li><a> Check Out </a></li>
+                    </ul>
+                </div>
+                <div class="cart box_1">
+                    <a>
+                        <h3>
+                            <div class="total">
+                                <span></span> (<span></span> items)
+                            </div>
+                            <img onclick="showcart()" src="images/bag.png" alt="" />
+                        </h3>
+                    </a>
+                    <p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>
+                    <div class="clearfix"> </div>
+                </div>
+
+                <div class="clearfix"></div>
+            </div>
+        </div>
+
+    </div>
+    <!--header-->
+    <!--banner-->
+    <!--banner-->
+    <!--content-->
+    <div id="product" class="content">
+        <!--banner-bottom-->
+        <!--banner-bottom-->
+        <!--new-arrivals-->
+        <div class="new-arrivals-w3agile">
+            <div class="container">
+                <h2 class="tittle">NEW ARRIVALS</h2>
+                <div id="mainbody" class="arrivals-grids">
+
+
+
+
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+        <!--new-arrivals-->
+        <!--accessories-->
+        <!--accessories-->
+        <!--Products-->
+        <!--Products-->
+        <!--new-arrivals-->
+
+
+
+
+
+
+
+    </div>
+
+    <!-- content checkout -->
+    <div id="cart" style="display:none" class="content">
+        <div class="cart-items">
+            <div class="container">
+                <h2>My Shopping Bag</h2>
+                <script>
+                    $(document).ready(function(c) {
+                        $('.close1').on('click', function(c){
+                            $('.cart-header').fadeOut('slow', function(c){
+                                $('.cart-header').remove();
+                            });
+                        });
+                    });
+                </script>
+                <div id="cartproducts" class="cart-header">
+                    <div class="close1"> </div>
+                    <!--<div class="cart-sec simpleCart_shelfItem">
+                        <div class="cart-item cyc">
+                            <img src="images/i1.jpg" class="img-responsive" alt="">
+                        </div>
+                        <div class="cart-item-info">
+                            <h3><a href="#"> Lorem Ipsum is not simply </a><span>Pickup time:</span></h3>
+                            <ul class="qty">
+                                <li><p>Min. order value:</p></li>
+                                <li><p>FREE delivery</p></li>
+                            </ul>
+                            <div class="delivery">
+                                <p>Service Charges : $10.00</p>
+                                <span>Delivered in 1-1:30 hours</span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>-->
+
+                </div>
+
+
+            </div>
+        </div>
+        <!-- checkout -->
+    </div>
+
+
+
+    <!--content-->
+    <!---footer--->
+    <!---footer--->
+    <!--copy-->
+    <div class="copy-section">
+        <div class="container">
+            <div class="copy-left">
+                <p>&copy; 2016 New Shop . All rights reserved | Design by <a href="http://w3layouts.com">W3layouts</a></p>
+            </div>
+            <div class="copy-right">
+                <img src="images/card.png" alt="" />
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <!--copy-->
+    <div class="modal fade" id="myModal1" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content modal-info">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="news-gr">
+                        <div class="col-md-5 new-grid1">
+                            <img src="images/p5.jpg" class="img-responsive" alt="">
+                        </div>
+                        <div class="col-md-7 new-grid">
+                            <h5>Ten Women's Cotton Viscose fabric Grey Shrug</h5>
+                            <h6>Quick Overview</h6>
+                            <span>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span>
+                            <div class="color-quality">
+                                <div class="color-quality-left">
+                                    <h6>Color : </h6>
+                                    <ul>
+                                        <li><a href="#"><span></span>Red</a></li>
+                                        <li><a href="#" class="brown"><span></span>Yellow</a></li>
+                                        <li><a href="#" class="purple"><span></span>Purple</a></li>
+                                        <li><a href="#" class="gray"><span></span>Violet</a></li>
+                                    </ul>
+                                </div>
+                                <div class="color-quality-right">
+                                    <h6>Quality :</h6>
+                                    <div class="quantity">
+                                        <div class="quantity-select">
+                                            <div class="entry value-minus1">&nbsp;</div>
+                                            <div class="entry value1"><span>1</span></div>
+                                            <div class="entry value-plus1 active">&nbsp;</div>
+                                        </div>
+                                    </div>
+                                    <!--quantity-->
+                                    <script>
+                                        $('.value-plus1').on('click', function(){
+                                            var divUpd = $(this).parent().find('.value1'), newVal = parseInt(divUpd.text(), 10)+1;
+                                            divUpd.text(newVal);
+                                        });
+                                        $('.value-minus1').on('click', function(){
+                                            var divUpd = $(this).parent().find('.value1'), newVal = parseInt(divUpd.text(), 10)-1;
+                                            if(newVal>=1) divUpd.text(newVal);
+                                        });
+                                    </script>
+                                    <!--quantity-->
+                                </div>
+                                <div class="clearfix"> </div>
+                            </div>
+                            <div class="women">
+                                <span class="size">XL / XXL / S </span>
+                                <p><del>$100.00</del><em class="item_price"> $70.00 </em></p>
+                                <div class="add">
+                                    <button class="btn btn-danger my-cart-btn my-cart-b" data-id="3" data-name="Kabuli Chana" data-summary="summary 3" data-price="2.00" data-quantity="1" data-image="images/of2.png">Add to Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModal2" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content modal-info">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="news-gr">
+                        <div class="col-md-5 new-grid1">
+                            <img src="images/p7.jpg" class="img-responsive" alt="">
+                        </div>
+                        <div class="col-md-7 new-grid">
+                            <h5>Ten Women's Cotton Viscose fabric Grey Shrug</h5>
+                            <h6>Quick Overview</h6>
+                            <span>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span>
+                            <div class="color-quality">
+                                <div class="color-quality-left">
+                                    <h6>Color : </h6>
+                                    <ul>
+                                        <li><a href="#"><span></span>Red</a></li>
+                                        <li><a href="#" class="brown"><span></span>Yellow</a></li>
+                                        <li><a href="#" class="purple"><span></span>Purple</a></li>
+                                        <li><a href="#" class="gray"><span></span>Violet</a></li>
+                                    </ul>
+                                </div>
+                                <div class="color-quality-right">
+                                    <h6>Quality :</h6>
+                                    <div class="quantity">
+                                        <div class="quantity-select">
+                                            <div class="entry value-minus1">&nbsp;</div>
+                                            <div class="entry value1"><span>1</span></div>
+                                            <div class="entry value-plus1 active">&nbsp;</div>
+                                        </div>
+                                    </div>
+                                    <!--quantity-->
+                                    <script>
+                                        $('.value-plus1').on('click', function(){
+                                            var divUpd = $(this).parent().find('.value1'), newVal = parseInt(divUpd.text(), 10)+1;
+                                            divUpd.text(newVal);
+                                        });
+                                        $('.value-minus1').on('click', function(){
+                                            var divUpd = $(this).parent().find('.value1'), newVal = parseInt(divUpd.text(), 10)-1;
+                                            if(newVal>=1) divUpd.text(newVal);
+                                        });
+                                    </script>
+                                    <!--quantity-->
+                                </div>
+                                <div class="clearfix"> </div>
+                            </div>
+                            <div class="women">
+                                <span class="size">XL / XXL / S </span>
+                                <p><del>$100.00</del><em class="item_price"> $70.00 </em></p>
+                                <div class="add">
+                                    <button class="btn btn-danger my-cart-btn my-cart-b" data-id="3" data-name="Kabuli Chana" data-summary="summary 3" data-price="2.00" data-quantity="1" data-image="images/of2.png">Add to Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModal3" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content modal-info">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="news-gr">
+                        <div class="col-md-5 new-grid1">
+                            <img src="images/p10.jpg" class="img-responsive" alt="">
+                        </div>
+                        <div class="col-md-7 new-grid">
+                            <h5>Ten Men's Cotton Viscose fabric Grey Shrug</h5>
+                            <h6>Quick Overview</h6>
+                            <span>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span>
+                            <div class="color-quality">
+                                <div class="color-quality-left">
+                                    <h6>Color : </h6>
+                                    <ul>
+                                        <li><a href="#"><span></span>Red</a></li>
+                                        <li><a href="#" class="brown"><span></span>Yellow</a></li>
+                                        <li><a href="#" class="purple"><span></span>Purple</a></li>
+                                        <li><a href="#" class="gray"><span></span>Violet</a></li>
+                                    </ul>
+                                </div>
+                                <div class="color-quality-right">
+                                    <h6>Quality :</h6>
+                                    <div class="quantity">
+                                        <div class="quantity-select">
+                                            <div class="entry value-minus1">&nbsp;</div>
+                                            <div class="entry value1"><span>1</span></div>
+                                            <div class="entry value-plus1 active">&nbsp;</div>
+                                        </div>
+                                    </div>
+                                    <!--quantity-->
+                                    <script>
+                                        $('.value-plus1').on('click', function(){
+                                            var divUpd = $(this).parent().find('.value1'), newVal = parseInt(divUpd.text(), 10)+1;
+                                            divUpd.text(newVal);
+                                        });
+                                        $('.value-minus1').on('click', function(){
+                                            var divUpd = $(this).parent().find('.value1'), newVal = parseInt(divUpd.text(), 10)-1;
+                                            if(newVal>=1) divUpd.text(newVal);
+                                        });
+                                    </script>
+                                    <!--quantity-->
+                                </div>
+                                <div class="clearfix"> </div>
+                            </div>
+                            <div class="women">
+                                <span class="size">XL / XXL / S </span>
+                                <p><del>$100.00</del><em class="item_price"> $70.00 </em></p>
+                                <div class="add">
+                                    <button class="btn btn-danger my-cart-btn my-cart-b" data-id="3" data-name="Kabuli Chana" data-summary="summary 3" data-price="2.00" data-quantity="1" data-image="images/of2.png">Add to Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModal4" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content modal-info">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="news-gr">
+                        <div class="col-md-5 new-grid1">
+                            <img src="images/p12.jpg" class="img-responsive" alt="">
+                        </div>
+                        <div class="col-md-7 new-grid">
+                            <h5>Ten Men's Cotton Viscose fabric Grey Shrug</h5>
+                            <h6>Quick Overview</h6>
+                            <span>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span>
+                            <div class="color-quality">
+                                <div class="color-quality-left">
+                                    <h6>Color : </h6>
+                                    <ul>
+                                        <li><a href="#"><span></span>Red</a></li>
+                                        <li><a href="#" class="brown"><span></span>Yellow</a></li>
+                                        <li><a href="#" class="purple"><span></span>Purple</a></li>
+                                        <li><a href="#" class="gray"><span></span>Violet</a></li>
+                                    </ul>
+                                </div>
+                                <div class="color-quality-right">
+                                    <h6>Quality :</h6>
+                                    <div class="quantity">
+                                        <div class="quantity-select">
+                                            <div class="entry value-minus1">&nbsp;</div>
+                                            <div class="entry value1"><span>1</span></div>
+                                            <div class="entry value-plus1 active">&nbsp;</div>
+                                        </div>
+                                    </div>
+                                    <!--quantity-->
+                                    <script>
+                                        $('.value-plus1').on('click', function(){
+                                            var divUpd = $(this).parent().find('.value1'), newVal = parseInt(divUpd.text(), 10)+1;
+                                            divUpd.text(newVal);
+                                        });
+                                        $('.value-minus1').on('click', function(){
+                                            var divUpd = $(this).parent().find('.value1'), newVal = parseInt(divUpd.text(), 10)-1;
+                                            if(newVal>=1) divUpd.text(newVal);
+                                        });
+                                    </script>
+                                    <!--quantity-->
+                                </div>
+                                <div class="clearfix"> </div>
+                            </div>
+                            <div class="women">
+                                <span class="size">XL / XXL / S </span>
+                                <p><del>$100.00</del><em class="item_price"> $70.00 </em></p>
+                                <div class="add">
+                                    <button class="btn btn-danger my-cart-btn my-cart-b" data-id="3" data-name="Kabuli Chana" data-summary="summary 3" data-price="2.00" data-quantity="1" data-image="images/of2.png">Add to Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
